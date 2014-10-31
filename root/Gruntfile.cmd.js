@@ -342,6 +342,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('release', [
 		'clean:release',
 		'copy:release',
+		'clean:rootConfig',
+		'copy:rootConfig',
 		'imagemin',
 		'less:release',
 		'imageEmbed',
@@ -364,8 +366,6 @@ module.exports = function (grunt) {
 		'copy:debug',
         'clean:debug',
 		'clean:build',
-		'clean:rootConfig',
-		'copy:rootConfig',
 		'cssmin',
 		'rev:css',
 		'rev:js',

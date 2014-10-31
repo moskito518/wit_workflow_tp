@@ -197,6 +197,62 @@ ok,现在大家应该能知道，工作流是怎么处理前端的工作的了�
 ```
 
 1.html文件存放在html文件中。
+
 2.seajs的模块存放在```js/src```目录中，```app```代表模块，html中可以use，不能require，```include```目录代表最基本的引用文件，比较底层的东西请写在这里，可以被require，```plugins```项目中自己开发的插件，可能被多此引用，此文件夹下的东西都不打包，```requires```表示app模块中所需的引用，只能被app中的模块require
+
 3.less文件夹放less文件，打包后会自动生成css目录，和less目录同级
+
+### 开发项目
+
+在package.json同级目录执行
+
+```npm install```
+
+完成后请修改根目录下node_modules->grunt-usemin->lib->fileprocessor.js
+
+在
+
+```
+  css: [
+    [
+      /(?:src=|url\(\s*)['"]?([^'"\)(\?|#)]+)['"]?\s*\)?/gm,
+      'Update the CSS to reference our revved images'
+    ]
+  ],  
+```
+
+后添加
+
+```
+    less: [
+  	  [
+        /(?:src=|url\(\s*)['"]?([^'"\)(\?|#)]+)['"]?\s*\)?/gm,
+        'Update the CSS to reference our revved images'
+  	  ]
+    ],
+```
+
+以开启对less文件的支持
+
+开发时请注意：
+
+所有seajs的模块都需要别名，别名配置在dev/js/rootConfig.js中配置，配置完成后请同步更新同目录下的json文件，这里配置的时打包发布时所需的模块别名，此文件只包含依赖的模块，不需要配置app文件夹中的模块
+
+可以查看[example]()，学习怎么配置这些文件
+
+#### 监听文件改变，编译less
+
+因为less不能直接使用，所以请在开发的时候打开less的编译开关，我们建议将所有css文件合并到style.css文件中，所以目前只会生成一个style.css文件，如果需要配置，请手动修改Gruntfile.js中针对less的配置
+
+```grunt watch```
+
+开启对less文件的监听
+
+### 打包项目
+
+开发完成以后，需要发布项目，在Gruntfile.js的同级目录执行
+
+```grunt release```
+
+将在dev的同级目录生成release文件夹，里面包含所有线上的资源，目录结构类似于dev目录，js/src目录被删除，会多生成dist(线上js主目录)代替src，debug目录用来调试
 

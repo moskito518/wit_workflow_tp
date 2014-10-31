@@ -177,14 +177,14 @@ ok,现在大家应该能知道，工作流是怎么处理前端的工作的了�
 	│   └──rootConfig.js
 	│   └──yourProjectName.cmd.json
     │   └── src
-	│         └── app
-	│             └── app.js
-	│         └── include
-	│             └── include.js
-	│         └── plugins
-	│             └── plugins.js
-	│         └── requires
-	│             └── requires.js
+	│       └── app
+	│           └── app.js
+	│       └── include
+	│           └── include.js
+	│       └── plugins
+	│           └── plugins.js
+	│       └── requires
+	│           └── requires.js
     ├── less
 	|   └── frameworks
 	|       └── frameworks.less
@@ -195,3 +195,8 @@ ok,现在大家应该能知道，工作流是怎么处理前端的工作的了�
 └── package.json
 └── yourProjectName.wit.json
 ```
+
+1.html文件存放在html文件中。
+2.seajs的模块存放在```js/src```目录中，```app```代表模块，html中可以use，不能require，```include```目录代表最基本的引用文件，比较底层的东西请写在这里，可以被require，```plugins```项目中自己开发的插件，可能被多此引用，此文件夹下的东西都不打包，```requires```表示app模块中所需的引用，只能被app中的模块require
+3.less文件夹放less文件，打包后会自动生成css目录，和less目录同级
+

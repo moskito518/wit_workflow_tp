@@ -1,26 +1,31 @@
-# 微智2014前端开发工具流
+# 微智2014前端开发工作流
 
-> Create a jQuery plugin with [grunt-init][], including QUnit unit tests.
+> 使用 [grunt-init][]创建基于seajs和less的前端开发工作流程.
 
 [grunt-init]: http://gruntjs.com/project-scaffolding
 
-## Installation
-If you haven't already done so, install [grunt-init][].
+## 什么是前端工作流
+随着web的日益发展，前端的工作越来越繁多，使用的工具也越来越多
 
-Once grunt-init is installed, place this template in your `~/.grunt-init/` directory. It's recommended that you use git to clone this template into that directory, as follows:
-
-```
-git clone https://github.com/gruntjs/grunt-init-jquery.git ~/.grunt-init/jquery
-```
-
-_(Windows users, see [the documentation][grunt-init] for the correct destination directory path)_
-
-## Usage
-
-At the command-line, cd into an empty directory, run this command and follow the prompts.
+目前一个基本的web开发流程类似下面的结构
 
 ```
-grunt-init jquery
+1、建立项目，梳理目录结构
+
+2、coding...
+
+3、发布
 ```
 
-_Note that this template will generate files in the current directory, so be sure to change to a new directory first if you don't want to overwrite existing files._
+看起来很简单的流程，但是如果仔细考虑，就会碰到很多问题
+
+```
+1、线上资源和开发资源的更新问题，如何保证客户端载入的永远是线上最新的版本，而不使用缓存。
+
+2、前端资源的压缩和打包，太繁杂，又要压缩js，又要压缩css，还要压缩图片，一个工作日，都不一定能处理好这些问题。
+
+3、如果项目太大，如何形成良好的团队开发模式。
+```
+
+## 使用工作流解决问题
+

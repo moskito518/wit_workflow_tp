@@ -42,7 +42,7 @@
 
 [less][]是一款css的预处理语言，他有独立的运算能力，而且具有混合，变量等动态语言的特性，使用less可以快速开发css
 
-#######[点击去查看less文档][]
+######[点击去查看less文档][]
 
 [less]:http://www.lesscss.net/
 [点击去查看less文档]:http://www.lesscss.net/
@@ -68,51 +68,80 @@ Base64是网络上最常见的用于传输8Bit字节代码的编码方式之一�
 什么是内嵌资源，内嵌资源就是将一些css文件、js文件、图片嵌入到html页面中，去避免为了一些可能只有一两句的文件去请求服务器资源，将小文件嵌入到html中，看示例就能很清楚：
 
 ```
-	<!doctype html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Document</title>
-		<link rel="stylesheet" href="../css/style.css?__inline=true" />
-	</head>
-	<body>
-		<div id="logo"></div>
-		<div>
-			<img src="../img/house_01.png?__inline=true" alt="" />
-		</div>
-		<script src="../js/sea.js"></script>
-		<script src="../js/rootConfig.js?__inline=true"></script>
-		<script>
-			seajs.use('app');
-		</script>
-	</body>
-	</html>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<link rel="stylesheet" href="../css/style.css?__inline=true" />
+</head>
+<body>
+	<div id="logo"></div>
+	<div>
+		<img src="../img/house_01.png?__inline=true" alt="" />
+	</div>
+	<script src="../js/sea.js"></script>
+	<script src="../js/rootConfig.js?__inline=true"></script>
+	<script>
+		seajs.use('app');
+	</script>
+</body>
+</html>
 ```
 
 使用工作流打包后：
 
 ```
-	<!doctype html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Document</title>
-		<style>
-	html,body{margin:0;padding:0}div#logo{background:url(data:image/png;base64,...) 0 0 no-repeat;background-color:#00f;height:60px}
-	</style>
-	</head>
-	<body>
-		<div id="logo"></div>
-		<div>
-			<img src="data:image/png;base64,..." alt="" />
-		</div>
-		<script src="../js/sea.js"></script>
-		<script>
-	seajs.config({alias:{jquery:"lib/jquery",app:"dist/app/app",requires:"dist/requires/requires",include:"dist/include/include",plugins:"dist/plugins/plugins"},charset:"utf-8",map:[[/^(.*\.(?:css|js))(.*)$/i,"$1?v=0.1.0"]]});
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+html,body{margin:0;padding:0}div#logo{background:url(data:image/png;base64,...) 0 0 no-repeat;background-color:#00f;height:60px}
+</style>
+</head>
+<body>
+	<div id="logo"></div>
+	<div>
+		<img src="data:image/png;base64,..." alt="" />
+	</div>
+	<script src="../js/sea.js"></script>
+	<script>
+seajs.config({alias:{jquery:"lib/jquery",app:"dist/app/app",requires:"dist/requires/requires",include:"dist/include/include",plugins:"dist/plugins/plugins"},charset:"utf-8",map:[[/^(.*\.(?:css|js))(.*)$/i,"$1?v=0.1.0"]]});
+</script>
+	<script>
+		seajs.use('app');
 	</script>
-		<script>
-			seajs.use('app');
-		</script>
-	</body>
-	</html>
+</body>
+</html>
 ```
+
+可以看到，将一些小资源内嵌到html中，可以减少很多服务器的请求操作
+
+##### 5、资源替换
+
+在我们上线的时候可能有很多问题，新的资源需要更新，那么html页面中就需要手动更新文件的缓存，一般的方法是给更新的资源添加时间戳。
+
+
+```
+	<img src="logo.png?t=7defa41">
+```
+
+但是这样也有问题，当你更新了html模版，而没有更新资源文件，那么新的用户在访问网站时，就会形成缓存，而如果你先更新了资源文件，没有更新html模版，那么老用户在此期间访问网站，还是会加入缓存，所以一般大型网站在更新时，都加班到半夜，挑相对人少的时候去更新。
+
+那么我们看看工作流是怎么解决的，计算出文件的hash值，将新文件重命名，在文件名中加入hash值，这样你更新资源时，不会覆盖原来的旧文件，然后将html中对资源的引用地址改为新的地址，这样就可以防止新用户产生缓存。
+
+看示例：
+
+```
+	<img src="logo.png">
+```
+
+```
+	<img src="7defa41.logo.png">
+```
+
+ok,现在大家应该能知道，工作流是怎么处理前端的工作的了，下面就看看怎么开始搭建你的工作流
+
+## 搭建工作流

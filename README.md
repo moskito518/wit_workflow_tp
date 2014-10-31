@@ -238,7 +238,7 @@ ok,现在大家应该能知道，工作流是怎么处理前端的工作的了�
 
 所有seajs的模块都需要别名，别名配置在dev/js/rootConfig.js中配置，配置完成后请同步更新同目录下的json文件，这里配置的时打包发布时所需的模块别名，此文件只包含依赖的模块，不需要配置app文件夹中的模块
 
-可以查看[example]()，学习怎么配置这些文件
+可以查看[example](https://github.com/moskito518/wit_workflow_example)，学习怎么配置这些文件
 
 #### 监听文件改变，编译less
 

@@ -163,3 +163,32 @@ ok,现在大家应该能知道，工作流是怎么处理前端的工作的了�
 6、进入文件夹，在命令行输入，```grunt-init wit_workflow```
 
 7、回答相对的问题后，你的工作流就创建完成了
+
+### 打开项目
+
+初始化完成后你将获得下面这样结构的项目
+
+```
+└── dev
+    ├── img
+	|   └── logo.png
+    ├── js
+	│   └──sea.js
+	│   └──rootConfig.js
+	│   └──yourProjectName.cmd.json
+    │   └── src
+	│         └── app
+	│             └── app.js
+	│         └── include
+	│             └── include.js
+	│         └── plugins
+	│             └── plugins.js
+	│         └── requires
+	│             └── requires.js
+    ├── less
+	|   └── frameworks
+	|       └── frameworks.less
+	|   └── style.less	
+	├── html
+	|   └── index.html
+```

@@ -125,7 +125,7 @@ seajs.config({alias:{jquery:"lib/jquery",app:"dist/app/app",requires:"dist/requi
 
 
 ```
-	<img src="logo.png?t=7defa41">
+<img src="logo.png?t=7defa41">
 ```
 
 但是这样也有问题，当你更新了html模版，而没有更新资源文件，那么新的用户在访问网站时，就会形成缓存，而如果你先更新了资源文件，没有更新html模版，那么老用户在此期间访问网站，还是会加入缓存，所以一般大型网站在更新时，都加班到半夜，挑相对人少的时候去更新。
@@ -135,13 +135,25 @@ seajs.config({alias:{jquery:"lib/jquery",app:"dist/app/app",requires:"dist/requi
 看示例：
 
 ```
-	<img src="logo.png">
+<img src="logo.png">
 ```
 
 ```
-	<img src="7defa41.logo.png">
+<img src="7defa41.logo.png">
 ```
 
 ok,现在大家应该能知道，工作流是怎么处理前端的工作的了，下面就看看怎么开始搭建你的工作流
 
 ## 搭建工作流
+
+###配置环境
+
+首先你需要一个node.js的环境
+
+1、安装nodejs[window 安装地址](http://nodejs.org/)，mac 推荐通过brew安装```brew install node```
+2、安装 grunt-cli ```npm install -g grunt-cli```
+3、安装 grunt-init ```npm install -g grunt-init```
+4、克隆本仓库到本地, windows克隆到：```%USERPROFILE%\.grunt-init\``` mac克隆到```~/.grunt-init/``` 如果没有```.grunt-init```目录可用```mkdir .grunt-init```命令创建
+5、打开命令行，新建你的项目文件夹```mkdir yourProject```
+6、进入文件夹，在命令行输入，```grunt-init wit_workflow```
+7、回答相对的问题后，你的工作流就创建完成了

@@ -317,7 +317,7 @@ module.exports = function (grunt) {
 		},
         //监听文件变化
         watch: {
-			less: {files: ["less/**/*.less"],tasks: ["less:dev"]}
+			less: {files: ["dev/less/**/*.less"],tasks: ["less:dev"]}
         },
     });
 

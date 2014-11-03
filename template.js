@@ -25,7 +25,6 @@ exports.template = function(grunt, init, done) {
     init.prompt('name'),
     init.prompt('version'),
     init.prompt('author_name'),
-	init.prompt('seajs', 'yes'),
 	init.prompt('less', 'yes')
   ], function(err, props) {
     // A few additional properties.
@@ -33,8 +32,17 @@ exports.template = function(grunt, init, done) {
 	
 	var renames = init.renames;
 	
-	//如果不使用seajs，用默认的Gruntfile文件构建项目
-	renames['Gruntfile.static.js'] = 'false';
+	//如果不使用less,关闭less编译等功能,并且使用css合并编译功能
+	if(!(props.less == 'yes')){
+		renames['Gruntfile.less.js'] = 'false';
+		renames['Gruntfile.no_less.js'] = 'Gruntfile.js';
+		renames['dev/less/**/*'] = 'false';
+	} else {
+		renames['Gruntfile.no_less.js'] = 'false';
+		renames['Gruntfile.less.js'] = 'Gruntfile.js';
+		renames['dev/css/**/*'] = 'false';
+	}
+	
 	renames['Gruntfile.cmd.js'] = 'Gruntfile.js';
 	renames['dev/js/cmd.json'] = 'dev/js/' + props.name + '.cmd.json';
 	
@@ -50,7 +58,6 @@ exports.template = function(grunt, init, done) {
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-watch": "*",
 		"grunt-contrib-clean": "*",
-		"grunt-contrib-less": "*",
 	    "grunt-contrib-imagemin": "*",
 		"grunt-inline": "*",
 		"grunt-rev": "*",
@@ -61,6 +68,12 @@ exports.template = function(grunt, init, done) {
 	
 	_devDependencies['grunt-cmd-concat'] =  "*";
 	_devDependencies['grunt-cmd-transport'] =  "*";
+	
+	if(props.less == 'yes') {
+		_devDependencies['grunt-contrib-less'] = "*";
+	} else {
+		_devDependencies['grunt-css-combo'] = "*";
+	}
 	
     // Generate package.json file, used by npm and grunt.
     init.writePackageJSON('package.json', {

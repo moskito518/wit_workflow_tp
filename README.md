@@ -196,11 +196,44 @@ ok,现在大家应该能知道，工作流是怎么处理前端的工作的了�
 └── yourProjectName.wit.json
 ```
 
+如果不使用less,将生成这样的目录
+
+```
+└── dev
+    ├── img
+	|   └── logo.png
+    ├── js
+	│   └──sea.js
+	│   └──rootConfig.js
+	│   └──yourProjectName.cmd.json
+    │   └── src
+	│       └── app
+	│           └── app.js
+	│       └── include
+	│           └── include.js
+	│       └── plugins
+	│           └── plugins.js
+	│       └── requires
+	│           └── requires.js
+    ├── css
+	|   └──src
+	|      └── frameworks
+	|          └── frameworks.less
+	|      └── style.less	
+	├── html
+	|   └── index.html
+└── Gruntfile.js
+└── package.json
+└── yourProjectName.wit.json
+```
+
 1.html文件存放在html文件中。
 
 2.seajs的模块存放在```js/src```目录中，```app```代表模块，html中可以use，不能require，```include```目录代表最基本的引用文件，比较底层的东西请写在这里，可以被require，```plugins```项目中自己开发的插件，可能被多此引用，此文件夹下的东西都不打包，```requires```表示app模块中所需的引用，只能被app中的模块require
 
 3.less文件夹放less文件，打包后会自动生成css目录，和less目录同级
+
+4.不使用less时,开发css时使用import将模块引入，在终端中输入```grunt dev```将会打开监听模式，将```css->src```目录下的所有css合并到```css->dist->style.css```中，在html中只引入此文件。
 
 ### 开发项目
 

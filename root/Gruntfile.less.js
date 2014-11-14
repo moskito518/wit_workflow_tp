@@ -189,6 +189,16 @@ module.exports = function (grunt) {
 					}
 				]
 			},
+			html: {
+				files: [
+					{
+						expand: true,
+						cwd: '../../Application/Home/View',
+						src: ['**/*'],
+						dest: 'release/html'
+					}
+				]
+			},
 			rootConfig: {
 				src: 'dev/js/rootConfig.js',
 				dest: 'release/js/rootConfig.js',
@@ -315,6 +325,36 @@ module.exports = function (grunt) {
 				]
 			}
 		},
+		'string-replace': {
+			html: {
+				files: [{
+					expand: true,
+					cwd: 'release/html',
+					src: '**/*',
+					dest: 'release/html'
+				}],
+				options: {
+					replacements: [{
+						pattern: '__ROOT__/wap/dev/',
+						replacement: '../../'
+					}]
+				}
+			},
+			back: {
+				files: [{
+					expand: true,
+					cwd: 'release/html',
+					src: '**/*',
+					dest: 'release/html'
+				}],
+				options: {
+					replacements: [{
+						pattern: '../../',
+						replacement: '__ROOT__/wap/'
+					}]
+				}
+			}
+		},
         //监听文件变化
         watch: {
 			less: {files: ["dev/less/**/*.less"],tasks: ["less:dev"]}
@@ -334,6 +374,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks("grunt-image-embed");
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-string-replace');
 	
 
     //注册监听文件变化
@@ -342,6 +383,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('release', [
 		'clean:release',
 		'copy:release',
+		'copy:html',
+		'strin-replace:html',
 		'clean:rootConfig',
 		'copy:rootConfig',
 		'imagemin',
@@ -370,6 +413,7 @@ module.exports = function (grunt) {
 		'rev:css',
 		'rev:js',
 		'usemin:html',
-		'clean:src'
+		'clean:src',
+		'strin-replace:back'
 	]);
 };

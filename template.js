@@ -63,7 +63,8 @@ exports.template = function(grunt, init, done) {
 		"grunt-rev": "*",
 		"grunt-contrib-cssmin": "*",
 		"grunt-usemin": "*",
-		"grunt-image-embed": "*"
+		"grunt-image-embed": "*",
+		"grunt-string-replace": "*"
 	};
 	
 	_devDependencies['grunt-cmd-concat'] =  "*";

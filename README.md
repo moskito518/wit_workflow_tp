@@ -1,5 +1,7 @@
 # 微智2014前端开发工作流
 
+##此版本只适用于智讯科技内部开发
+
 > 使用 [grunt-init][]创建基于seajs和less的前端开发工作流程.
 
 [grunt-init]: http://gruntjs.com/project-scaffolding

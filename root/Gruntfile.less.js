@@ -153,7 +153,7 @@ module.exports = function (grunt) {
                     cleancss: false
                 },
                 files: {
-                    "css/style.css": "less/style.less"
+                    "dev/css/style.css": "dev/less/style.less"
                 }
             },
 			release: {
@@ -335,7 +335,7 @@ module.exports = function (grunt) {
 				}],
 				options: {
 					replacements: [{
-						pattern: '__ROOT__/wap/dev/',
+						pattern: /__ROOT__\/wap\/dev\//g,
 						replacement: '../../'
 					}]
 				}
@@ -349,7 +349,7 @@ module.exports = function (grunt) {
 				}],
 				options: {
 					replacements: [{
-						pattern: '../../',
+						pattern: /..\/..\//g,
 						replacement: '__ROOT__/wap/'
 					}]
 				}
@@ -384,7 +384,7 @@ module.exports = function (grunt) {
 		'clean:release',
 		'copy:release',
 		'copy:html',
-		'strin-replace:html',
+		'string-replace:html',
 		'clean:rootConfig',
 		'copy:rootConfig',
 		'imagemin',
@@ -414,6 +414,6 @@ module.exports = function (grunt) {
 		'rev:js',
 		'usemin:html',
 		'clean:src',
-		'strin-replace:back'
+		'string-replace:back'
 	]);
 };
